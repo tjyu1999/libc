@@ -6,7 +6,7 @@ char* my_strcat(char *s1, const char *s2) {
 
     for (; *s != '\0'; ++s)
         ;
-    for (; (*s == *s2) != '\0'; ++s2)
+    for (; (*s = *s2) != '\0'; ++s, ++s2)
         ;
     return s1;
 }
