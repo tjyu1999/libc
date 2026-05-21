@@ -3,6 +3,7 @@
 #include <stddef.h>
 
 
+int    my_memcmp(const void*, const void*, size_t);
 void*  my_memcpy(void*, const void*, size_t);
 char*  my_strcat(char*, const char*);
 int    my_strcmp(const char*, const char*);
