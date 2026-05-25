@@ -21,6 +21,20 @@ void print_result(const char *name, int pass) {
         printf("%s\tFAIL\n", name);
 }
 
+static void test_memcmp() {
+    int pass = 1;
+    const char *s1[] = {"1234", "1234"};
+    const char *s2[] = {"1234", "1233"};
+    const char *s3[] = {"abc", "abcde"};
+    const char *s4[] = {"/////**", "/*/*/"};
+
+    pass &= (sign(memcmp(s1[0], s1[1], 4)) == sign(my_memcmp(s1[0], s1[1], 4)));
+    pass &= (sign(memcmp(s2[0], s2[1], 4)) == sign(my_memcmp(s2[0], s2[1], 4)));
+    pass &= (sign(memcmp(s3[0], s3[1], 3)) == sign(my_memcmp(s3[0], s3[1], 3)));
+    pass &= (sign(memcmp(s4[0], s4[1], 7)) == sign(my_memcmp(s4[0], s4[1], 7)));
+    print_result("memcmp", pass);
+}
+
 static void test_strcmp() {
     int pass = 1;
     const char *s1[] = {"abc", "abc"};
@@ -48,7 +62,7 @@ static void test_strlen() {
 }
 
 int main() {
-    // test_memcmp();
+    test_memcmp();
     // test_memcpy();
     // test_strcat();
     test_strcmp();
