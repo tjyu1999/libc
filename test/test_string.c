@@ -35,6 +35,20 @@ static void test_memcmp() {
     print_result("memcmp", pass);
 }
 
+static void test_memcpy() {
+    int pass = 1;
+    char ref[10];
+    char s[10];
+    const char *s1 = "abc";
+    const char *s2 = "/ * / * /";
+    const char *s3 = "XxYyZz";
+
+    pass &= (memcmp(memcpy(ref, s1, 3), my_memcpy(s, s1, 3), 3)) == 0;
+    pass &= (memcmp(memcpy(ref, s2, 9), my_memcpy(s, s2, 9), 9)) == 0;
+    pass &= (memcmp(memcpy(ref, s3, 6), my_memcpy(s, s3, 6), 6)) == 0;
+    print_result("memcpy", pass);
+}
+
 static void test_strcmp() {
     int pass = 1;
     const char *s1[] = {"abc", "abc"};
@@ -63,7 +77,7 @@ static void test_strlen() {
 
 int main() {
     test_memcmp();
-    // test_memcpy();
+    test_memcpy();
     // test_strcat();
     test_strcmp();
     // test_strcpy();
