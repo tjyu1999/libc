@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 #include "my_string.h"
 
@@ -22,7 +23,7 @@ void print_result(const char *name, int pass) {
 }
 
 static void test_memcmp() {
-    int pass = 1;
+    bool pass = true;
     const char *s1[] = {"1234", "1234"};
     const char *s2[] = {"1234", "1233"};
     const char *s3[] = {"abc", "abcde"};
@@ -36,21 +37,36 @@ static void test_memcmp() {
 }
 
 static void test_memcpy() {
-    int pass = 1;
+    bool pass = true;
     char ref[10];
-    char s[10];
+    char my[10];
     const char *s1 = "abc";
     const char *s2 = "/ * / * /";
     const char *s3 = "XxYyZz";
 
-    pass &= (memcmp(memcpy(ref, s1, 3), my_memcpy(s, s1, 3), 3)) == 0;
-    pass &= (memcmp(memcpy(ref, s2, 9), my_memcpy(s, s2, 9), 9)) == 0;
-    pass &= (memcmp(memcpy(ref, s3, 6), my_memcpy(s, s3, 6), 6)) == 0;
+    pass &= (memcmp(memcpy(ref, s1, 3), my_memcpy(my, s1, 3), 3)) == 0;
+    pass &= (memcmp(memcpy(ref, s2, 9), my_memcpy(my, s2, 9), 9)) == 0;
+    pass &= (memcmp(memcpy(ref, s3, 6), my_memcpy(my, s3, 6), 6)) == 0;
     print_result("memcpy", pass);
 }
 
+static void test_strchr() {
+    bool pass = true;
+    const char *s1 = "Hello world!";
+    const char *s2 = "bbbbb";
+    const char *s3 = "123\n";
+    int c1 = 'w';
+    int c2 = 'b';
+    int c3 = '\\';
+
+    pass &= (strchr(s1, c1) == my_strchr(s1, c1));
+    pass &= (strchr(s2, c2) == my_strchr(s2, c2));
+    pass &= (strchr(s3, c3) == my_strchr(s3, c3));
+    print_result("strchr", pass);
+}
+
 static void test_strcmp() {
-    int pass = 1;
+    bool pass = true;
     const char *s1[] = {"abc", "abc"};
     const char *s2[] = {"abc", "a\t\n"};
     const char *s3[] = {"abc", "abcde"};
@@ -62,7 +78,7 @@ static void test_strcmp() {
 }
 
 static void test_strlen() {
-    int pass = 1;
+    bool pass = true;
     const char *s1 = "";
     const char *s2 = "Hello world!";
     const char *s3 = "aaaaaaaaaaaaaaaaaaaa";
@@ -79,6 +95,7 @@ int main() {
     test_memcmp();
     test_memcpy();
     // test_strcat();
+    test_strchr();
     test_strcmp();
     // test_strcpy();
     test_strlen();
