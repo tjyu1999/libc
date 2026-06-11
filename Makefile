@@ -1,13 +1,14 @@
-CC     := gcc
-CFLAGS := -Wall -Wextra -Werror -I./include
+CC      := gcc
+CFLAGS  := -Wall -Wextra -Werror -I./include
 
-TESTS  := $(patsubst test/%.c, %, $(wildcard test/test_*.c))
-
+TEST_FILE := $(wildcard test/test_*.c)
+TEST      := $(patsubst test/%.c, %, $(TEST_FILE))
 all: $(TESTS)
 
 test_%: test/test_%.c
-	@$(CC) $(CFLAGS) $< $(wildcard src/$(subst test_,,$*)/*.c) -o $@
+	@$(CC) $(CFLAGS) $< $(wildcard src/$*/*.c) -o $@
 	@./$@
+	@rm -f $@
 
 clean:
 	@rm -f $(TESTS)
