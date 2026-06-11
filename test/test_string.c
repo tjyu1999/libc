@@ -38,16 +38,30 @@ static void test_memcmp() {
 
 static void test_memcpy() {
     bool pass = true;
-    char ref[10];
-    char my[10];
+    char exp[100] = "";
+    char act[100] = "";
     const char *s1 = "abc";
     const char *s2 = "/ * / * /";
     const char *s3 = "XxYyZz";
 
-    pass &= (memcmp(memcpy(ref, s1, 3), my_memcpy(my, s1, 3), 3)) == 0;
-    pass &= (memcmp(memcpy(ref, s2, 9), my_memcpy(my, s2, 9), 9)) == 0;
-    pass &= (memcmp(memcpy(ref, s3, 6), my_memcpy(my, s3, 6), 6)) == 0;
+    pass &= (memcmp(memcpy(exp, s1, 3), my_memcpy(act, s1, 3), 3)) == 0;
+    pass &= (memcmp(memcpy(exp, s2, 9), my_memcpy(act, s2, 9), 9)) == 0;
+    pass &= (memcmp(memcpy(exp, s3, 6), my_memcpy(act, s3, 6), 6)) == 0;
     print_result("memcpy", pass);
+}
+
+static void test_strcat() {
+    bool pass = true;
+    char exp[100] = "";
+    char act[100] = "";
+    const char *s1 = "!@#$^&*";
+    const char *s2 = "abc";
+    const char *s3 = "";
+
+    pass &= (strcmp(strcat(exp, s1), my_strcat(act, s1))) == 0;
+    pass &= (strcmp(strcat(exp, s2), my_strcat(act, s2))) == 0;
+    pass &= (strcmp(strcat(exp, s3), my_strcat(act, s3))) == 0;
+    print_result("strcat", pass);
 }
 
 static void test_strchr() {
@@ -77,6 +91,20 @@ static void test_strcmp() {
     print_result("strcmp", pass);
 }
 
+static void test_strcpy() {
+    bool pass = true;
+    char exp[100] = "";
+    char act[100] = "";
+    const char *s1 = "abc";
+    const char *s2 = "iiiiiiiiii";
+    const char *s3 = "/t/n123456789";
+
+    pass &= (strcmp(strcpy(exp, s1), my_strcpy(act, s1))) == 0;
+    pass &= (strcmp(strcpy(exp, s2), my_strcpy(act, s2))) == 0;
+    pass &= (strcmp(strcpy(exp, s3), my_strcpy(act, s3))) == 0;
+    print_result("memcpy", pass);
+}
+
 static void test_strlen() {
     bool pass = true;
     const char *s1 = "";
@@ -94,10 +122,10 @@ static void test_strlen() {
 int main() {
     test_memcmp();
     test_memcpy();
-    // test_strcat();
+    test_strcat();
     test_strchr();
     test_strcmp();
-    // test_strcpy();
+    test_strcpy();
     test_strlen();
 
     printf("\nTotal\t%d/%d\n\n", pass_count, total_count);
