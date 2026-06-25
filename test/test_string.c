@@ -102,7 +102,7 @@ static void test_strcpy() {
     pass &= (strcmp(strcpy(exp, s1), my_strcpy(act, s1))) == 0;
     pass &= (strcmp(strcpy(exp, s2), my_strcpy(act, s2))) == 0;
     pass &= (strcmp(strcpy(exp, s3), my_strcpy(act, s3))) == 0;
-    print_result("memcpy", pass);
+    print_result("strcpy", pass);
 }
 
 static void test_strlen() {
