@@ -105,6 +105,20 @@ static void test_strcpy() {
     print_result("strcpy", pass);
 }
 
+static void test_strcspn() {
+    bool pass = true;
+    const char *s1[] = {"Hello, world!", ","};
+    const char *s2[] = {"qqqqq", "q"};
+    const char *s3[] = {"\n\r\t", "\\"};
+    const char *s4[] = {"abcde", "bcd"};
+
+    pass &= (strcspn(s1[0], s1[1]) == my_strcspn(s1[0], s1[1]));
+    pass &= (strcspn(s2[0], s2[1]) == my_strcspn(s2[0], s2[1]));
+    pass &= (strcspn(s3[0], s3[1]) == my_strcspn(s3[0], s3[1]));
+    pass &= (strcspn(s4[0], s4[1]) == my_strcspn(s4[0], s4[1]));
+    print_result("strcspn", pass);
+}
+
 static void test_strlen() {
     bool pass = true;
     const char *s1 = "";
@@ -126,6 +140,7 @@ int main() {
     test_strchr();
     test_strcmp();
     test_strcpy();
+    test_strcspn();
     test_strlen();
 
     printf("\nTotal\t%d/%d\n\n", pass_count, total_count);
